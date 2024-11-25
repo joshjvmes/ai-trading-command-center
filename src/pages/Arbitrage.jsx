@@ -1,11 +1,7 @@
 import Navigation from "../components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
 
 const Arbitrage = () => {
-  const navigate = useNavigate();
-  
   const types = [
     {
       title: "Pure Arbitrage",
@@ -41,15 +37,7 @@ const Arbitrage = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-16">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text">Understanding Arbitrage</h1>
-          <Button 
-            onClick={() => navigate('/')}
-            className="bg-gradient-to-r from-rok-blue to-rok-green text-white hover:opacity-90"
-          >
-            Back to Home
-          </Button>
-        </div>
+        <h1 className="text-4xl font-bold mb-8 gradient-text">Understanding Arbitrage</h1>
         
         {/* Introduction */}
         <div className="prose prose-invert max-w-none mb-16">
