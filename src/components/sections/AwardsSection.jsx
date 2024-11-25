@@ -47,14 +47,14 @@ export const AwardsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="h-full"
+            whileHover={{ y: -4 }}
           >
-            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200 h-full flex flex-col">
+            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200">
               <div className="mb-6">
                 <Award className="w-16 h-16 mx-auto text-rok-blue" />
               </div>
               <div className="text-xl font-bold text-rok-blue mb-2">{award.organization}</div>
-              <p className="text-gray-400 flex-grow">{award.achievement}</p>
+              <p className="text-gray-400">{award.achievement}</p>
             </Card>
           </motion.div>
         ))}
