@@ -39,7 +39,10 @@ export const StepsSection = () => (
             viewport={{ once: true }}
             whileHover={{ y: -4 }}
           >
-            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200">
+            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200 min-h-[280px] min-w-[280px] flex flex-col items-center justify-center relative">
+              <div className="absolute top-4 left-4 w-8 h-8 rounded-full bg-gradient-to-r from-rok-blue to-rok-green flex items-center justify-center text-lg font-bold">
+                {index + 1}
+              </div>
               <div className="text-2xl font-bold text-rok-blue mb-2">{step.price}</div>
               <h3 className="text-xl font-bold mb-4">{step.title}</h3>
               <p className="text-gray-400">{step.description}</p>
