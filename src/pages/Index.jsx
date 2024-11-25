@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Navigation from "../components/Navigation";
 
 const Index = () => {
   const features = [
@@ -56,6 +57,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <Navigation />
       {/* Hero Section */}
       <section className="container mx-auto px-4 pt-20 pb-32 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-6 gradient-text animate-fade-up [--animation-delay:200ms]">

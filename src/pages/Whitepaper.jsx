@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import Navigation from "../components/Navigation";
 
 const Whitepaper = () => {
   const sections = [
@@ -86,6 +87,7 @@ It's time to hedge on-chain. Welcome to Rocket $ROK.`
 
   return (
     <div className="min-h-screen pb-20">
+      <Navigation />
       {/* Header */}
       <div className="container mx-auto px-4 pt-8">
         <Link to="/" className="inline-flex items-center text-rok-blue hover:text-rok-green transition-colors mb-8">
