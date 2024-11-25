@@ -40,6 +40,33 @@ const Index = () => {
     }
   ];
 
+  const awards = [
+    {
+      organization: "Barclays Hedge",
+      achievement: "Top 10 Systematic Traders for The Year (Ranked by Net Return) - 2021"
+    },
+    {
+      organization: "Barclays Hedge",
+      achievement: "2nd Best Performing Diversified Trader (Ranked by Net Returns) - 2021"
+    },
+    {
+      organization: "Barclays Hedge",
+      achievement: "Top 3 Performing Short Term Strategies (Ranked by Net Returns) - 2021"
+    },
+    {
+      organization: "Barclays Hedge",
+      achievement: "Top 10 Diversified Traders Managing Less Than $10M (Ranked by Net Returns)"
+    },
+    {
+      organization: "BCR Broker",
+      achievement: "Top 10 Longest Track Record (Ranked by Net Returns) 2016 - Present"
+    },
+    {
+      organization: "Dubai Expo",
+      achievement: "Most Consistent AI Trading Algorithm (Ranked by Net Returns) - 2023"
+    }
+  ];
+
   const faqs = [
     {
       question: "How does the AI trading system work?",
@@ -91,6 +118,28 @@ const Index = () => {
                 <div className="text-2xl font-bold text-rok-blue mb-2">{step.price}</div>
                 <h3 className="text-xl font-bold mb-4">{step.title}</h3>
                 <p className="text-gray-400">{step.description}</p>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Awards Section */}
+      <section className="bg-black/30 py-32">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-16 gradient-text">Our Awards</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {awards.map((award, index) => (
+              <Card key={index} className="glass-card p-8 text-center">
+                <div className="mb-6">
+                  <img 
+                    src="/lovable-uploads/af550939-c681-4870-8fa5-243d90dc379a.png" 
+                    alt="Award Trophy" 
+                    className="w-16 h-16 mx-auto"
+                  />
+                </div>
+                <div className="text-xl font-bold text-rok-blue mb-2">{award.organization}</div>
+                <p className="text-gray-400">{award.achievement}</p>
               </Card>
             ))}
           </div>
