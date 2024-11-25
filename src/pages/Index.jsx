@@ -35,6 +35,28 @@ const Index = () => {
       <StepsSection />
       <AwardsSection />
       <FaqSection />
+
+      <motion.section
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        viewport={{ once: true }}
+        className="py-32 bg-black/30"
+      >
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-5xl md:text-6xl font-bold mb-6 gradient-text">Ready to Start Trading?</h2>
+          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
+            Join the exclusive community of AI-powered traders today
+          </p>
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all"
+          >
+            Reserve Your Wallet Now
+          </Button>
+        </div>
+      </motion.section>
+
       <Footer />
     </div>
   );
