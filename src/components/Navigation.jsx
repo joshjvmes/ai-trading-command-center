@@ -11,12 +11,12 @@ const Navigation = () => {
               Rocket $ROK
             </Link>
           </div>
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center gap-8">
             {navItems.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
-                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
+                className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
               >
                 {item.icon}
                 <span>{item.title}</span>
