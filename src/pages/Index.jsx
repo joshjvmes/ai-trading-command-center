@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Award } from "lucide-react";
 import Navigation from "../components/Navigation";
 
-const Index = () => {
   const features = [
     {
       title: "AI Trading Intelligence",
@@ -40,32 +40,32 @@ const Index = () => {
     }
   ];
 
-  const awards = [
-    {
-      organization: "Barclays Hedge",
-      achievement: "Top 10 Systematic Traders for The Year (Ranked by Net Return) - 2021"
-    },
-    {
-      organization: "Barclays Hedge",
-      achievement: "2nd Best Performing Diversified Trader (Ranked by Net Returns) - 2021"
-    },
-    {
-      organization: "Barclays Hedge",
-      achievement: "Top 3 Performing Short Term Strategies (Ranked by Net Returns) - 2021"
-    },
-    {
-      organization: "Barclays Hedge",
-      achievement: "Top 10 Diversified Traders Managing Less Than $10M (Ranked by Net Returns)"
-    },
-    {
-      organization: "BCR Broker",
-      achievement: "Top 10 Longest Track Record (Ranked by Net Returns) 2016 - Present"
-    },
-    {
-      organization: "Dubai Expo",
-      achievement: "Most Consistent AI Trading Algorithm (Ranked by Net Returns) - 2023"
-    }
-  ];
+const awards = [
+  {
+    organization: "Barclays Hedge",
+    achievement: "Top 10 Systematic Traders for The Year (Ranked by Net Return) - 2021"
+  },
+  {
+    organization: "Barclays Hedge",
+    achievement: "2nd Best Performing Diversified Trader (Ranked by Net Returns) - 2021"
+  },
+  {
+    organization: "Barclays Hedge",
+    achievement: "Top 3 Performing Short Term Strategies (Ranked by Net Returns) - 2021"
+  },
+  {
+    organization: "Barclays Hedge",
+    achievement: "Top 10 Diversified Traders Managing Less Than $10M (Ranked by Net Returns)"
+  },
+  {
+    organization: "BCR Broker",
+    achievement: "Top 10 Longest Track Record (Ranked by Net Returns) 2016 - Present"
+  },
+  {
+    organization: "Dubai Expo",
+    achievement: "Most Consistent AI Trading Algorithm (Ranked by Net Returns) - 2023"
+  }
+];
 
   const faqs = [
     {
@@ -82,6 +82,7 @@ const Index = () => {
     }
   ];
 
+const Index = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -132,11 +133,7 @@ const Index = () => {
             {awards.map((award, index) => (
               <Card key={index} className="glass-card p-8 text-center">
                 <div className="mb-6">
-                  <img 
-                    src="/lovable-uploads/af550939-c681-4870-8fa5-243d90dc379a.png" 
-                    alt="Award Trophy" 
-                    className="w-16 h-16 mx-auto"
-                  />
+                  <Award className="w-16 h-16 mx-auto text-rok-blue" />
                 </div>
                 <div className="text-xl font-bold text-rok-blue mb-2">{award.organization}</div>
                 <p className="text-gray-400">{award.achievement}</p>
