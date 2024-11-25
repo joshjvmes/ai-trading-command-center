@@ -8,7 +8,7 @@ const Arbitrage = lazy(() => import("./pages/Arbitrage"));
 export const navItems = [
   {
     title: "Home",
-    to: "/home",
+    to: "/",
     page: <Index />,
     icon: <Home className="w-5 h-5" />
   },
