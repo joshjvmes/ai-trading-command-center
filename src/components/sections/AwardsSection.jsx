@@ -49,7 +49,7 @@ export const AwardsSection = () => (
             viewport={{ once: true }}
             whileHover={{ y: -4 }}
           >
-            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200">
+            <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200 min-h-[280px] min-w-[280px] flex flex-col items-center justify-center">
               <div className="mb-6">
                 <Award className="w-16 h-16 mx-auto text-rok-blue" />
               </div>
