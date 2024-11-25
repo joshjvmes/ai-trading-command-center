@@ -6,7 +6,7 @@ export const HeroSection = () => (
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     transition={{ duration: 0.3 }}
-    className="container mx-auto px-4 pt-20 pb-32 text-center relative"
+    className="container mx-auto px-4 pt-32 pb-32 text-center relative"
   >
     <motion.h1 
       initial={{ opacity: 0, y: 8 }}
