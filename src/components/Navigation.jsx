@@ -11,7 +11,7 @@ const Navigation = () => {
               Rocket $ROK
             </Link>
           </div>
-          <div className="flex-1 flex items-center justify-evenly max-w-2xl ml-auto">
+          <div className="flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.to}
