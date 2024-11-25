@@ -1,7 +1,9 @@
 import { HomeIcon, BookOpenIcon, TrendingUpIcon } from "lucide-react";
-import Index from "./pages/Index.jsx";
-import Whitepaper from "./pages/Whitepaper.jsx";
-import Arbitrage from "./pages/Arbitrage.jsx";
+import { lazy } from "react";
+
+const Index = lazy(() => import("./pages/Index.jsx"));
+const Whitepaper = lazy(() => import("./pages/Whitepaper.jsx"));
+const Arbitrage = lazy(() => import("./pages/Arbitrage.jsx"));
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
