@@ -1,7 +1,8 @@
 import { HomeIcon, BookOpenIcon, TrendingUpIcon } from "lucide-react";
 import { lazy } from "react";
+import Index from "./pages/Index.jsx";
 
-const Index = lazy(() => import("./pages/Index.jsx"));
+// Only lazy load larger pages
 const Whitepaper = lazy(() => import("./pages/Whitepaper.jsx"));
 const Arbitrage = lazy(() => import("./pages/Arbitrage.jsx"));
 
