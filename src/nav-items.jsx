@@ -1,10 +1,11 @@
-import { HomeIcon, BookOpenIcon, TrendingUpIcon } from "lucide-react";
+import { HomeIcon, BookOpenIcon, TrendingUpIcon, ChartLineUpIcon } from "lucide-react";
 import { lazy } from "react";
 import Index from "./pages/Index.jsx";
 
 // Only lazy load larger pages
 const Whitepaper = lazy(() => import("./pages/Whitepaper.jsx"));
 const Arbitrage = lazy(() => import("./pages/Arbitrage.jsx"));
+const Performance = lazy(() => import("./pages/Performance.jsx"));
 
 /**
  * Central place for defining the navigation items. Used for navigation components and routing.
@@ -27,5 +28,11 @@ export const navItems = [
     to: "/arbitrage",
     icon: <TrendingUpIcon className="h-4 w-4" />,
     page: <Arbitrage />,
+  },
+  {
+    title: "Performance",
+    to: "/performance",
+    icon: <ChartLineUpIcon className="h-4 w-4" />,
+    page: <Performance />,
   },
 ];
