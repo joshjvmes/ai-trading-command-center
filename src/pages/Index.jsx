@@ -22,14 +22,17 @@ const Index = () => {
       <HeroSection />
 
       <motion.section 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         viewport={{ once: true }}
-        className="container mx-auto px-4 py-32"
+        className="container mx-auto px-4 py-32 relative"
       >
-        <h2 className="text-4xl font-bold text-center mb-16 gradient-text">Track Record</h2>
-        <PerformanceDashboard />
+        <div className="absolute inset-0 bg-gradient-to-b from-rok-blue/5 to-rok-green/5 rounded-3xl backdrop-blur-3xl" />
+        <div className="relative">
+          <h2 className="text-4xl font-bold text-center mb-16 gradient-text">Track Record</h2>
+          <PerformanceDashboard />
+        </div>
       </motion.section>
 
       <StepsSection />
