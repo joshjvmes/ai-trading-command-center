@@ -12,10 +12,9 @@ export const HeroSection = () => (
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: 0.1 }}
-      className="text-4xl md:text-6xl font-bold mb-6 gradient-text flex flex-col"
+      className="text-4xl md:text-6xl font-bold mb-6 gradient-text"
     >
-      <span>Your Personal AI</span>
-      <span>Trading Command Center</span>
+      Your Personal AI Trading Command Center
     </motion.h1>
     
     <motion.p
