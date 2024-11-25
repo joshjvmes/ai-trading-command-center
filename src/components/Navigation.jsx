@@ -8,7 +8,7 @@ const Navigation = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
             <Link to="/" className="text-2xl font-bold gradient-text">
-              ROCKET $ROK
+              Rocket $ROK
             </Link>
           </div>
           <div className="flex items-center space-x-8">
