@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Award } from "lucide-react";
 import Navigation from "../components/Navigation";
+import PerformanceDashboard from "../components/PerformanceDashboard";
 
   const features = [
     {
@@ -107,6 +108,12 @@ const Index = () => {
             </Card>
           ))}
         </div>
+      </section>
+
+      {/* Performance Dashboard Section */}
+      <section className="container mx-auto px-4 py-32">
+        <h2 className="text-4xl font-bold text-center mb-16 gradient-text">Track Record</h2>
+        <PerformanceDashboard />
       </section>
 
       {/* How It Works Section */}
