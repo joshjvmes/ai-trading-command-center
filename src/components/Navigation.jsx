@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { navItems } from "../nav-items";
+import { Tooltip } from "@/components/ui/tooltip";
+import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Navigation = () => {
   return (
@@ -11,16 +13,23 @@ const Navigation = () => {
               ROCKET $ROK
             </Link>
           </div>
-          <div className="flex items-center space-x-8">
+          <div className="flex items-center space-x-6">
             {navItems.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors"
-              >
-                {item.icon}
-                <span>{item.title}</span>
-              </Link>
+              <TooltipProvider key={item.to}>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link
+                      to={item.to}
+                      className="p-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                    >
+                      {item.icon}
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{item.title}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             ))}
           </div>
         </div>
