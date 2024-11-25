@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Award } from "lucide-react";
+import { Award, Zap } from "lucide-react";
 import Navigation from "../components/Navigation";
 import PerformanceDashboard from "../components/PerformanceDashboard";
 import { motion } from "framer-motion";
@@ -13,6 +13,11 @@ import { FaqSection } from "../components/sections/FaqSection";
 import { Footer } from "../components/sections/Footer";
 
 const Index = () => {
+  const scrollToTrackRecord = () => {
+    const trackRecordSection = document.querySelector('#track-record');
+    trackRecordSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen relative">
       <div className="fixed inset-0 bg-gradient-to-br from-rok-dark via-black to-rok-dark opacity-50 pointer-events-none -z-10" />
@@ -22,7 +27,17 @@ const Index = () => {
         
         <HeroSection />
 
+        <div className="flex justify-center py-16">
+          <button
+            onClick={scrollToTrackRecord}
+            className="text-rok-blue hover:text-rok-green transition-colors duration-300"
+          >
+            <Zap size={48} />
+          </button>
+        </div>
+
         <motion.section 
+          id="track-record"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
