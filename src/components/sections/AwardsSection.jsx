@@ -50,13 +50,9 @@ export const AwardsSection = () => (
             whileHover={{ y: -4 }}
           >
             <Card className="glass-card p-8 text-center hover:bg-white/10 transition-all duration-200">
-              <motion.div 
-                className="mb-6"
-                animate={{ rotate: [0, 5, -5, 0] }}
-                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              >
+              <div className="mb-6">
                 <Award className="w-16 h-16 mx-auto text-rok-blue" />
-              </motion.div>
+              </div>
               <div className="text-xl font-bold text-rok-blue mb-2">{award.organization}</div>
               <p className="text-gray-400">{award.achievement}</p>
             </Card>
