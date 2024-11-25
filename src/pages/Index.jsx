@@ -27,13 +27,21 @@ const Index = () => {
         
         <HeroSection />
 
-        <div className="flex justify-center py-16">
-          <button
+        <div className="flex justify-center py-8">
+          <motion.button
             onClick={scrollToTrackRecord}
             className="text-rok-blue hover:text-rok-green transition-colors duration-300"
+            animate={{
+              y: [0, -8, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           >
             <Zap size={48} />
-          </button>
+          </motion.button>
         </div>
 
         <motion.section 
