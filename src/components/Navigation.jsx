@@ -60,7 +60,7 @@ const Navigation = () => {
             </button>
             <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
               <Infinity size={20} />
-              <span>Avalanche</span>
+              <span>Solana</span>
             </button>
             <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
               <Infinity size={20} />
