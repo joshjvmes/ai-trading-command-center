@@ -1,11 +1,9 @@
 import Navigation from "../components/Navigation";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const Arbitrage = () => {
-  const navigate = useNavigate();
-  
   const types = [
     {
       title: "Pure Arbitrage",
@@ -41,15 +39,13 @@ const Arbitrage = () => {
       <Navigation />
       
       <div className="container mx-auto px-4 py-16">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold gradient-text">Understanding Arbitrage</h1>
-          <Button 
-            onClick={() => navigate('/')}
-            className="bg-gradient-to-r from-rok-blue to-rok-green text-white hover:opacity-90"
-          >
-            Back to Home
-          </Button>
-        </div>
+        {/* Breadcrumb */}
+        <Link to="/" className="inline-flex items-center text-rok-blue hover:text-rok-green transition-colors mb-8">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Home
+        </Link>
+
+        <h1 className="text-4xl font-bold gradient-text mb-8">Understanding Arbitrage</h1>
         
         {/* Introduction */}
         <div className="prose prose-invert max-w-none mb-16">
