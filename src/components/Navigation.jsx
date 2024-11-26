@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import { navItems } from "../nav-items";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Bitcoin, Infinity, CircleDollarSign } from "lucide-react";
+import { Bitcoin, Infinity, CircleDollarSign, Pin } from "lucide-react";
+import { Toggle } from "@/components/ui/toggle";
+import { useState } from "react";
 
 const Navigation = () => {
+  const [isSticky, setIsSticky] = useState(false);
+
   return (
-    <div className="sticky top-0 z-50 backdrop-blur-lg">
+    <div className={`${isSticky ? 'sticky' : 'relative'} top-0 z-50 backdrop-blur-lg`}>
       <nav className="border-b border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
@@ -62,6 +66,25 @@ const Navigation = () => {
               <Infinity size={20} />
               <span>Ethereum</span>
             </button>
+            <div className="ml-auto">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Toggle 
+                      pressed={isSticky} 
+                      onPressedChange={setIsSticky}
+                      className="data-[state=on]:bg-rok-blue"
+                    >
+                      <Pin size={16} className="mr-1" />
+                      Sticky
+                    </Toggle>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Toggle sticky navigation</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            </div>
           </div>
         </div>
       </div>
