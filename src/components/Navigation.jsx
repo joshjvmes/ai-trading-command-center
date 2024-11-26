@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import { navItems } from "../nav-items";
-import { Tooltip } from "@/components/ui/tooltip";
-import { TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Bitcoin, Infinity, CircleDollarSign } from "lucide-react";
 
 const Navigation = () => {
   return (
-    <div>
+    <div className="sticky top-0 z-50 backdrop-blur-lg">
       <nav className="border-b border-white/10">
         <div className="container mx-auto px-4">
           <div className="flex h-16 items-center justify-between">
