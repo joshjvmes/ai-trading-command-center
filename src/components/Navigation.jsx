@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { navItems } from "../nav-items";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Bitcoin, Infinity, CircleDollarSign, Pin } from "lucide-react";
+import { Bitcoin, Infinity, CircleDollarSign, Pin, Home, Zap, FileText } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Navigation = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -39,6 +39,12 @@ const Navigation = () => {
     }
   };
 
+  const navigationItems = [
+    { to: "/", icon: <Home size={20} />, title: "Home" },
+    { to: "/arbitrage", icon: <Zap size={20} />, title: "Arbitrage" },
+    { to: "/whitepaper", icon: <FileText size={20} />, title: "Whitepaper" },
+  ];
+
   return (
     <div className={`${isSticky ? 'sticky' : 'relative'} top-0 z-50 backdrop-blur-lg`}>
       <nav className="border-b border-white/10">
@@ -53,7 +59,7 @@ const Navigation = () => {
               </button>
             </div>
             <div className="flex items-center space-x-6">
-              {navItems.map((item) => (
+              {navigationItems.map((item) => (
                 <TooltipProvider key={item.to}>
                   <Tooltip>
                     <TooltipTrigger asChild>
