@@ -56,7 +56,7 @@ const Navigation = () => {
                 onClick={toggleSecondaryMenu}
                 className="text-2xl font-bold gradient-text hover:opacity-80 transition-opacity"
               >
-                ROCKET $ROK
+                $ROK
               </button>
             </div>
             <div className="flex items-center space-x-6">
