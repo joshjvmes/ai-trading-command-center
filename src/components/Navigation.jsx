@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { navItems } from "../nav-items";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Bitcoin, Infinity, CircleDollarSign, Pin, ArrowLeft, ArrowRight } from "lucide-react";
+import { Bitcoin, Infinity, CircleDollarSign, Pin, Home, BookOpen, ArrowLeftRight } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useState } from "react";
 
@@ -40,9 +40,9 @@ const Navigation = () => {
   };
 
   const navigationItems = [
-    { to: "/", icon: <ArrowLeft size={20} />, title: "Home" },
-    { to: "/arbitrage", icon: <ArrowRight size={20} />, title: "Arbitrage" },
-    { to: "/whitepaper", icon: <ArrowRight size={20} />, title: "Whitepaper" },
+    { to: "/", icon: <Home size={20} />, title: "Home" },
+    { to: "/arbitrage", icon: <ArrowLeftRight size={20} />, title: "Arbitrage" },
+    { to: "/whitepaper", icon: <BookOpen size={20} />, title: "Whitepaper" },
   ];
 
   return (
