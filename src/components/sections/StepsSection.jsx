@@ -5,12 +5,12 @@ const steps = [
   {
     title: "Purchase Your Smart Wallet",
     description: "Secure your position among 100,000 exclusive wallets",
-    price: "$1,000"
+    price: "$100,000"
   },
   {
     title: "Fund Your Account",
     description: "Distribute funds across 10 major cryptocurrencies",
-    price: "$10,000 min"
+    price: "$250,000 min"
   },
   {
     title: "Watch Your AI Trade",
