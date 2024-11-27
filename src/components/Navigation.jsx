@@ -3,7 +3,7 @@ import { navItems } from "../nav-items";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Bitcoin, Infinity, CircleDollarSign, Pin } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Navigation = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -11,6 +11,32 @@ const Navigation = () => {
 
   const toggleSecondaryMenu = () => {
     setIsSecondaryMenuOpen(!isSecondaryMenuOpen);
+  };
+
+  const handleChainClick = (chain) => {
+    const root = document.documentElement;
+    switch (chain) {
+      case 'bitcoin':
+        root.style.setProperty('--background', '32, 84%, 4.9%');
+        document.body.style.backgroundColor = '#ff8c00';
+        break;
+      case 'polygon':
+        root.style.setProperty('--background', '32, 84%, 4.9%');
+        document.body.style.backgroundColor = '#8b5cf6';
+        break;
+      case 'solana':
+        root.style.setProperty('--background', '32, 84%, 4.9%');
+        document.body.style.backgroundColor = '#ffd700';
+        break;
+      case 'ethereum':
+        root.style.setProperty('--background', '32, 84%, 4.9%');
+        document.body.style.backgroundColor = '#00f2a9';
+        break;
+      default:
+        root.style.setProperty('--background', '222.2, 84%, 4.9%');
+        document.body.style.backgroundColor = '#0A1428';
+        break;
+    }
   };
 
   return (
@@ -57,24 +83,39 @@ const Navigation = () => {
       >
         <div className="container mx-auto px-4">
           <div className="flex items-center h-14 space-x-4 overflow-x-auto">
-            <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
+            <button 
+              onClick={() => handleChainClick('all')}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors"
+            >
               <CircleDollarSign size={20} />
               <span>All Chains</span>
             </button>
             <div className="h-5 w-px bg-white/10"></div>
-            <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
+            <button 
+              onClick={() => handleChainClick('bitcoin')}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors"
+            >
               <Bitcoin size={20} />
               <span>Bitcoin</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
+            <button 
+              onClick={() => handleChainClick('polygon')}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors"
+            >
               <Infinity size={20} />
               <span>Polygon</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
+            <button 
+              onClick={() => handleChainClick('solana')}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors"
+            >
               <Infinity size={20} />
               <span>Solana</span>
             </button>
-            <button className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors">
+            <button 
+              onClick={() => handleChainClick('ethereum')}
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-white/5 text-gray-300 hover:text-white transition-colors"
+            >
               <Infinity size={20} />
               <span>Ethereum</span>
             </button>
