@@ -10,26 +10,26 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 export const navItems = [
   {
     to: "/",
-    page: Index,
+    page: <Index />,
   },
   {
     to: "/arbitrage",
-    page: Arbitrage,
+    page: <Arbitrage />,
   },
   {
     to: "/whitepaper",
-    page: Whitepaper,
+    page: <Whitepaper />,
   },
   {
     to: "/login",
-    page: Login,
+    page: <Login />,
   },
   {
     to: "/register",
-    page: Register,
+    page: <Register />,
   },
   {
     to: "/dashboard",
-    page: Dashboard,
+    page: <Dashboard />,
   },
 ];

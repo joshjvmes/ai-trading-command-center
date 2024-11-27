@@ -14,8 +14,8 @@ const App = () => (
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            {navItems.map(({ to, page: Component }) => (
-              <Route key={to} path={to} element={<Component />} />
+            {navItems.map(({ to, page }) => (
+              <Route key={to} path={to} element={page} />
             ))}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
@@ -23,6 +23,6 @@ const App = () => (
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
-);
+)
 
 export default App;
