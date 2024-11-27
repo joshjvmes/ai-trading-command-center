@@ -41,8 +41,8 @@ const Navigation = () => {
 
   const navigationItems = [
     { to: "/", icon: <Home size={20} />, title: "Home" },
-    { to: "/arbitrage", icon: <ArrowLeftRight size={20} />, title: "Arbitrage" },
     { to: "/whitepaper", icon: <BookOpen size={20} />, title: "Whitepaper" },
+    { to: "/arbitrage", icon: <ArrowLeftRight size={20} />, title: "Arbitrage" },
   ];
 
   return (
