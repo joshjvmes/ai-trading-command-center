@@ -1,11 +1,12 @@
 import { lazy } from "react";
 
 const Index = lazy(() => import("./pages/Index"));
-const Arbitrage = lazy(() => import("./pages/Arbitrage"));
-const Whitepaper = lazy(() => import("./pages/Whitepaper"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Whitepaper = lazy(() => import("./pages/Whitepaper"));
+const Arbitrage = lazy(() => import("./pages/Arbitrage"));
+const Purchase = lazy(() => import("./pages/Purchase"));
 
 export const navItems = [
   {
@@ -13,12 +14,8 @@ export const navItems = [
     page: <Index />,
   },
   {
-    to: "/arbitrage",
-    page: <Arbitrage />,
-  },
-  {
-    to: "/whitepaper",
-    page: <Whitepaper />,
+    to: "/dashboard",
+    page: <Dashboard />,
   },
   {
     to: "/login",
@@ -29,7 +26,15 @@ export const navItems = [
     page: <Register />,
   },
   {
-    to: "/dashboard",
-    page: <Dashboard />,
+    to: "/whitepaper",
+    page: <Whitepaper />,
+  },
+  {
+    to: "/arbitrage",
+    page: <Arbitrage />,
+  },
+  {
+    to: "/purchase",
+    page: <Purchase />,
   },
 ];

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 export const HeroSection = () => (
   <motion.section 
@@ -34,9 +35,11 @@ export const HeroSection = () => (
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Button size="lg" className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all">
-        Reserve Your Smart Wallet Now
-      </Button>
+      <Link to="/purchase">
+        <Button size="lg" className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all">
+          Reserve Your Smart Wallet Now
+        </Button>
+      </Link>
     </motion.div>
   </motion.section>
 );
