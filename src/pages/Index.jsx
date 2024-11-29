@@ -11,6 +11,7 @@ import { StepsSection } from "../components/sections/StepsSection";
 import { AwardsSection } from "../components/sections/AwardsSection";
 import { FaqSection } from "../components/sections/FaqSection";
 import { Footer } from "../components/sections/Footer";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   const scrollToTrackRecord = () => {
@@ -72,12 +73,14 @@ const Index = () => {
             <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
               Join the exclusive community of AI-powered traders today
             </p>
-            <Button 
-              size="lg" 
-              className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all"
-            >
-              Reserve Your Wallet Now
-            </Button>
+            <Link to="/purchase">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all"
+              >
+                Reserve Your Wallet Now
+              </Button>
+            </Link>
           </div>
         </motion.section>
 
