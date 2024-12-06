@@ -11,7 +11,18 @@ const Purchase = () => {
 
   const handlePurchase = (e) => {
     e.preventDefault();
-    toast.success("Purchase request submitted! Our team will contact you shortly.");
+    
+    // @ts-ignore - Tally is loaded from CDN
+    window.Tally.openPopup('nr2oy5', {
+      layout: 'modal',
+      width: 700,
+      hiddenFields: {
+        investment_amount: amount
+      },
+      onSubmit: () => {
+        toast.success("Purchase request submitted! Our team will contact you shortly.");
+      }
+    });
   };
 
   return (
