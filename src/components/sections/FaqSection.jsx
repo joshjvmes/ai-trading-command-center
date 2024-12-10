@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     question: "How is my investment protected?",
-    answer: "Your funds are protected by timelock encryption, and you maintain full withdrawal rights at all times. We implement strict risk management protocols and offer a zero-loss trading guarantee."
+    answer: "Your funds are protected by timelock encryption, and you maintain full withdrawal rights at all times. We implement strict risk management protocols."
   }
 ];
 
