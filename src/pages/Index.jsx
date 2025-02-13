@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Award, Zap } from "lucide-react";
 import Navigation from "../components/Navigation";
 import PerformanceDashboard from "../components/PerformanceDashboard";
@@ -12,20 +17,21 @@ import { AwardsSection } from "../components/sections/AwardsSection";
 import { FaqSection } from "../components/sections/FaqSection";
 import { Footer } from "../components/sections/Footer";
 import { Link } from "react-router-dom";
+import Presale from "./Presale";
 
 const Index = () => {
   const scrollToTrackRecord = () => {
-    const trackRecordSection = document.querySelector('#track-record');
-    trackRecordSection?.scrollIntoView({ behavior: 'smooth' });
+    const trackRecordSection = document.querySelector("#track-record");
+    trackRecordSection?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <div className="min-h-screen relative">
       <div className="fixed inset-0 bg-gradient-to-br from-rok-dark via-black to-rok-dark opacity-50 pointer-events-none -z-10" />
-      
+
       <div className="relative z-10">
         <Navigation />
-        
+
         <HeroSection />
 
         <div className="flex justify-center py-8">
@@ -38,14 +44,14 @@ const Index = () => {
             transition={{
               duration: 1.5,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
           >
             <Zap size={48} />
           </motion.button>
         </div>
 
-        <motion.section 
+        <motion.section
           id="track-record"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -53,7 +59,9 @@ const Index = () => {
           viewport={{ once: true }}
           className="container mx-auto px-4 py-32"
         >
-          <h2 className="text-4xl font-bold text-center mb-16 gradient-text">Track Record</h2>
+          <h2 className="text-4xl font-bold text-center mb-16 gradient-text">
+            Track Record
+          </h2>
           <PerformanceDashboard />
         </motion.section>
 
@@ -69,13 +77,15 @@ const Index = () => {
           className="py-32 bg-black/30"
         >
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-5xl md:text-6xl font-bold mb-6 gradient-text">Ready to Start Trading?</h2>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6 gradient-text">
+              Ready to Start Trading?
+            </h2>
             <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto">
               Join the exclusive community of AI-powered traders today
             </p>
             <Link to="/purchase">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-gradient-to-r from-rok-blue to-rok-green text-white text-lg px-8 py-6 rounded-full hover:opacity-90 transition-all"
               >
                 Reserve Your Wallet Now

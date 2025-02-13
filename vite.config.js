@@ -22,4 +22,13 @@ export default defineConfig({
       },
     ],
   },
+  define: {
+    "process.env": {},
+    global: "globalThis",
+  },
+  build: {
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
+  },
 });
