@@ -13,11 +13,19 @@ import {
 import { LAMPORTS_PER_SOL, SystemProgram, Transaction } from "@solana/web3.js";
 import * as anchor from "@project-serum/anchor";
 import Navigation from "@/components/Navigation";
-import { Wallet, Coins, Lock, Users, ArrowUpCircle } from "lucide-react";
+import {
+  Wallet,
+  Coins,
+  Lock,
+  Users,
+  ArrowUpCircle,
+  Twitter,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 // Add the authorized wallet address
 const AUTHORIZED_WALLET = "AGxGbR4qZ2priXXvVEpYSx8w5T2VEuJgG57eq54H1ALY";
+const TWITTER_HANDLES_KEY = "presale_twitter_handles";
 
 export default function Presale() {
   const { connection } = useConnection();
@@ -26,16 +34,37 @@ export default function Presale() {
   const [contribution, setContribution] = useState(0);
   const [amount, setAmount] = useState("");
   const [balance, setBalance] = useState(0);
-  const [contributors, setContributors] = useState([
-    { address: "8xyd...3Rfx", amount: 2.5, twitter: "@user1" },
-    { address: "9mkt...7Tpq", amount: 1.8, twitter: "@user2" },
-  ]);
+  const [contributors, setContributors] = useState([]);
   const [isContributeOpen, setIsContributeOpen] = useState(false);
+  const [twitterHandle, setTwitterHandle] = useState("");
+  const [twitterHandles, setTwitterHandles] = useState({});
 
   const program = publicKey && wallet ? getProgram(connection, wallet) : null;
 
   // Check if the connected wallet is authorized
   const isAuthorized = publicKey?.toBase58() === AUTHORIZED_WALLET;
+
+  useEffect(() => {
+    const storedHandles = localStorage.getItem(TWITTER_HANDLES_KEY);
+    if (storedHandles) {
+      setTwitterHandles(JSON.parse(storedHandles));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(twitterHandles).length > 0) {
+      localStorage.setItem(TWITTER_HANDLES_KEY, JSON.stringify(twitterHandles));
+    }
+  }, [twitterHandles]);
+
+  useEffect(() => {
+    if (publicKey) {
+      const handle = twitterHandles[publicKey.toString()];
+      if (handle) {
+        setTwitterHandle(handle);
+      }
+    }
+  }, [publicKey, twitterHandles]);
 
   // Rest of the functions remain the same...
   const showTransactionToast = (signature, message) => {
@@ -72,11 +101,20 @@ export default function Presale() {
     }
   };
 
-  const updateContributors = () => {
+  const getWalletAddress = () => {
+    return publicKey ? publicKey.toString() : null;
+  };
+
+  const getShortenedAddress = (address) => {
+    return `${address.slice(0, 4)}...${address.slice(-4)}`;
+  };
+
+  const updateContributors = (newContribution) => {
     if (!publicKey) return;
-    const shortenedAddress = `${publicKey.toString().slice(0, 4)}...${publicKey
-      .toString()
-      .slice(-4)}`;
+    const address = getWalletAddress();
+    if (!address) return;
+    const shortenedAddress = getShortenedAddress(address);
+    const twitter = twitterHandles[address] || "";
     const existingContributor = contributors.find(
       (c) => c.address === shortenedAddress
     );
@@ -84,7 +122,9 @@ export default function Presale() {
     if (existingContributor) {
       setContributors(
         contributors.map((c) =>
-          c.address === shortenedAddress ? { ...c, amount: contribution } : c
+          c.address === shortenedAddress
+            ? { ...c, amount: newContribution, twitter }
+            : c
         )
       );
     } else {
@@ -92,8 +132,8 @@ export default function Presale() {
         ...contributors,
         {
           address: shortenedAddress,
-          amount: contribution,
-          twitter: "@user" + (contributors.length + 1),
+          amount: newContribution,
+          twitter,
         },
       ]);
     }
@@ -134,12 +174,45 @@ export default function Presale() {
   };
 
   const contribute = async () => {
-    if (!program || !publicKey || !amount) return;
+    if (!program || !publicKey || !amount || !twitterHandle) {
+      toast.error("Please provide both amount and Twitter handle");
+      return;
+    }
 
     try {
+      const parsedAmount = parseFloat(amount);
+      if (isNaN(parsedAmount) || parsedAmount <= 0) {
+        toast.error("Please enter a valid amount");
+        return;
+      }
+
+      const userBalance = await connection.getBalance(publicKey);
+      if (userBalance < parsedAmount * LAMPORTS_PER_SOL) {
+        toast.error("Insufficient balance");
+        return;
+      }
+
+      // Get wallet address
+      const address = getWalletAddress();
+      if (!address) {
+        toast.error("Wallet not connected");
+        return;
+      }
+
+      // Save Twitter handle before transaction
+      let formattedTwitter = twitterHandle;
+      if (!formattedTwitter.startsWith("@")) {
+        formattedTwitter = "@" + formattedTwitter;
+      }
+
+      setTwitterHandles((prev) => ({
+        ...prev,
+        [address]: formattedTwitter,
+      }));
+
       const vaultAccounts = await program.account.vault.all();
       if (vaultAccounts.length === 0) {
-        alert("No vault initialized");
+        toast.error("No vault initialized");
         return;
       }
 
@@ -147,10 +220,13 @@ export default function Presale() {
       const [vaultPda] = await deriveVaultPDA(vault.publicKey);
       const [contributionPda] = await deriveContributionPDA(publicKey);
 
-      const lamports = parseFloat(amount) * LAMPORTS_PER_SOL;
+      const lamports = new anchor.BN(parsedAmount * LAMPORTS_PER_SOL);
 
-      const tx = await program.methods
-        .contribute(new anchor.BN(lamports))
+      const { blockhash } = await connection.getLatestBlockhash("confirmed");
+
+      // Create the contribute instruction
+      const contributeIx = await program.methods
+        .contribute(lamports)
         .accounts({
           vault: vault.publicKey,
           vaultPda,
@@ -158,27 +234,46 @@ export default function Presale() {
           contributor: publicKey,
           systemProgram: SystemProgram.programId,
         })
-        .transaction();
+        .instruction();
 
-      const transaction = new Transaction().add(tx);
-      transaction.feePayer = publicKey;
-      transaction.recentBlockhash = (
-        await connection.getLatestBlockhash()
-      ).blockhash;
+      // Create and send transaction
+      const transaction = new Transaction({
+        feePayer: publicKey,
+        recentBlockhash: blockhash,
+      }).add(contributeIx);
 
       const signature = await sendTransaction(transaction, connection);
-      await connection.confirmTransaction(signature, "confirmed");
+      console.log("Transaction sent:", signature);
 
-      await fetchContribution();
-      updateContributors();
-      fetchBalance();
+      const confirmation = await connection.confirmTransaction(
+        signature,
+        "confirmed"
+      );
+      console.log("Transaction confirmed:", confirmation);
+
+      if (confirmation.value.err) {
+        throw new Error("Transaction failed to confirm");
+      }
+
+      // Update UI after successful confirmation
+      const newContribution = (contribution || 0) + parsedAmount;
+      setContribution(newContribution);
+      updateContributors(newContribution);
+      await fetchBalance();
+
       showTransactionToast(
         signature,
-        `Successfully contributed ${amount} SOL!`
+        `Successfully contributed ${parsedAmount} SOL!`
       );
+
+      // Reset amount input but keep Twitter handle
+      setAmount("");
+      setIsContributeOpen(false);
     } catch (error) {
-      console.error("Error contributing:", error);
-      toast.error("Failed to contribute");
+      console.error("Error in contribute function:", error);
+      toast.error(
+        "Failed to contribute: " + (error.message || "Unknown error")
+      );
     }
   };
 
@@ -265,19 +360,21 @@ export default function Presale() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-6xl mx-auto"
+        className="max-w-6xl mx-auto "
       >
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-12">
+        <div className="flex justify-between items-center mb-12 ">
           <motion.div whileHover={{ scale: 1.02 }} className="p-4">
             <Navigation />
           </motion.div>
 
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-4 bg-white/10 p-4 rounded-xl backdrop-blur-sm"
+            className="flex items-center gap-4 bg-white/10 p-4 rounded-xl backdrop-blur-sm relative z-40 overflow-visible"
           >
-            <WalletMultiButton />
+            <div>
+              <WalletMultiButton />
+            </div>
             {publicKey && (
               <div className="flex items-center gap-2">
                 <Coins className="text-yellow-400" size={20} />
@@ -292,7 +389,7 @@ export default function Presale() {
         {publicKey && (
           <div className="space-y-8">
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="bg-white/10 p-6 rounded-2xl backdrop-blur-sm"
@@ -341,7 +438,6 @@ export default function Presale() {
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-4 items-center">
-              {/* Only show Initialize and Withdraw buttons for authorized wallet */}
               {isAuthorized && (
                 <>
                   <motion.button
@@ -377,23 +473,41 @@ export default function Presale() {
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
-                  className="flex gap-2"
+                  className="flex flex-col gap-4 items-center"
                 >
-                  <input
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    placeholder="Amount in SOL"
-                    className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  />
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={contribute}
-                    className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-colors"
-                  >
-                    <ArrowUpCircle size={24} />
-                  </motion.button>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      placeholder="Amount in SOL"
+                      min="0"
+                      step="0.1"
+                      className="px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                    <div className="relative">
+                      <Twitter
+                        className="absolute left-3 top-2.5 text-gray-400"
+                        size={20}
+                      />
+                      <input
+                        type="text"
+                        value={twitterHandle}
+                        onChange={(e) => setTwitterHandle(e.target.value)}
+                        placeholder="@twitter"
+                        className="px-4 py-2 pl-10 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                      />
+                    </div>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={contribute}
+                      disabled={!amount || !twitterHandle}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-xl font-bold shadow-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <ArrowUpCircle size={24} />
+                    </motion.button>
+                  </div>
                 </motion.div>
               )}
             </div>
